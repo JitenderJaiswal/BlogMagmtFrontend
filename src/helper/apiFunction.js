@@ -1,15 +1,16 @@
 import { getFormBody, getAuthTokenFromLocalStorage } from "./utils";
 import { APIUrls } from "./urls";
 
+const headers = {
+  "Content-Type": "application/x-www-form-urlencoded",
+  Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+};
 export async function createNewPost(ev, title, content, setSuccess, setError) {
   ev.preventDefault();
 
   const options = {
     method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
-    },
+    headers: headers,
 
     body: getFormBody({ title, content }),
   };
@@ -45,10 +46,7 @@ export async function updatePost(ev, id, title, content, setSuccess, setError) {
   ev.preventDefault();
   const options = {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
-    },
+    headers: headers,
 
     body: getFormBody({ title, content }),
   };
@@ -64,10 +62,7 @@ export async function updatePost(ev, id, title, content, setSuccess, setError) {
 export async function deletePost(id, setFlag) {
   const options = {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
-    },
+    headers: headers,
   };
   const response = await fetch(APIUrls.deletePost(id), options);
   const data = await response.json();
@@ -81,20 +76,25 @@ export async function register(
   name,
   email,
   password,
+  confirmPassword,
   setSuccess,
   setError,
-  setUser
+  setUser,
+  setCheckPassword
 ) {
   ev.preventDefault();
-  console.log("hello");
+  if (password !== confirmPassword) {
+    setCheckPassword(true);
+    return;
+  }
   const options = {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    headers: headers["Content-Type"],
     body: getFormBody({ name, email, password }),
   };
   const response = await fetch(APIUrls.signup(), options);
   const data = await response.json();
-  console.log(data);
+
   if (data.success) {
     localStorage.setItem("token", data.data.token);
     setUser(data.data.user);
@@ -115,7 +115,7 @@ export async function login(
   ev.preventDefault();
   const options = {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    headers: headers["Content-Type"],
     body: getFormBody({ email, password }),
   };
   const response = await fetch(APIUrls.login(), options);

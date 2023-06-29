@@ -19,24 +19,32 @@ function Navbar({ user, setUser }) {
         {user ? (
           <>
             <div className="right-nav" style={{ marginRight: "10px" }}>
-              {user.name}
+              <h4>{user.name}</h4>
             </div>
             <div style={{ marginRight: "10px" }}>
               <Link to="/create" style={{ textDecoration: "none" }}>
                 Create Post
               </Link>
             </div>
-            <div onClick={logOut}>Logout</div>
+            <div onClick={logOut} style={{ color: "red" }}>
+              Logout
+            </div>
           </>
         ) : (
           <>
             <div style={{ marginRight: "10px" }}>
-              <Link to="/login" style={{ textDecoration: "none" }}>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "green" }}
+              >
                 Login
               </Link>
             </div>
             <div>
-              <Link to="/signup" style={{ textDecoration: "none" }}>
+              <Link
+                to="/signup"
+                style={{ textDecoration: "none", color: "green" }}
+              >
                 Signup
               </Link>
             </div>

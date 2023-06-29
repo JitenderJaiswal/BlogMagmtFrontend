@@ -10,6 +10,7 @@ function SignUp(props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+  const [checkPassword, setCheckPassword] = useState(false);
   const { setUser } = props;
   if (success) {
     return <Navigate to={"/"} />;
@@ -19,10 +20,25 @@ function SignUp(props) {
       <form
         className="login-form"
         onSubmit={(ev) =>
-          register(ev, name, email, password, setSuccess, setError, setUser)
+          register(
+            ev,
+            name,
+            email,
+            password,
+            confirmPassword,
+            setSuccess,
+            setError,
+            setUser,
+            setCheckPassword
+          )
         }
       >
         <span className="login-signup-header">SignUp</span>
+        {checkPassword && (
+          <Alert severity="error">
+            Password and Confirm Password not match!
+          </Alert>
+        )}
         {error && <Alert severity="error">Error While Sign Up User!</Alert>}
 
         <div className="field">

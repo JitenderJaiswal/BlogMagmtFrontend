@@ -46,7 +46,7 @@ const CreatePost = ({ user }) => {
             onChange={(ev) => setContent(ev.target.value)}
           />
         </div>
-        <button type="submit" class="btn btn-primary mt-5">
+        <button type="submit" class="btn btn-primary mt-2">
           Create post
         </button>
       </form>

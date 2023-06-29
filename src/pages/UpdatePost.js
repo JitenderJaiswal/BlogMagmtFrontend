@@ -48,8 +48,8 @@ function UpdatePost({ user }) {
             placeholder="Enter Content"
           />
         </div>
-        <button type="submit" class="btn btn-primary mt-5">
-          Update post
+        <button type="submit" class="btn btn-primary mt-2">
+          Submit Post
         </button>
       </form>
     </div>
