@@ -6,6 +6,7 @@ function Navbar({ user, setUser }) {
     localStorage.removeItem("token");
     setUser(null);
   };
+  console.log("user", user);
   return (
     <div className="nav">
       <div className="left-div">

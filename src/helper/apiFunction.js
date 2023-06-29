@@ -1,16 +1,16 @@
+import jwt_decode from "jwt-decode";
 import { getFormBody, getAuthTokenFromLocalStorage } from "./utils";
 import { APIUrls } from "./urls";
 
-const headers = {
-  "Content-Type": "application/x-www-form-urlencoded",
-  Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
-};
 export async function createNewPost(ev, title, content, setSuccess, setError) {
   ev.preventDefault();
 
   const options = {
     method: "POST",
-    headers: headers,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+    },
 
     body: getFormBody({ title, content }),
   };
@@ -46,7 +46,10 @@ export async function updatePost(ev, id, title, content, setSuccess, setError) {
   ev.preventDefault();
   const options = {
     method: "PUT",
-    headers: headers,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+    },
 
     body: getFormBody({ title, content }),
   };
@@ -62,7 +65,10 @@ export async function updatePost(ev, id, title, content, setSuccess, setError) {
 export async function deletePost(id, setFlag) {
   const options = {
     method: "DELETE",
-    headers: headers,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+    },
   };
   const response = await fetch(APIUrls.deletePost(id), options);
   const data = await response.json();
@@ -89,7 +95,7 @@ export async function register(
   }
   const options = {
     method: "POST",
-    headers: headers["Content-Type"],
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: getFormBody({ name, email, password }),
   };
   const response = await fetch(APIUrls.signup(), options);
@@ -97,7 +103,7 @@ export async function register(
 
   if (data.success) {
     localStorage.setItem("token", data.data.token);
-    setUser(data.data.user);
+    setUser(jwt_decode(data.data.token));
     setSuccess(true);
     return;
   }
@@ -115,15 +121,15 @@ export async function login(
   ev.preventDefault();
   const options = {
     method: "POST",
-    headers: headers["Content-Type"],
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: getFormBody({ email, password }),
   };
   const response = await fetch(APIUrls.login(), options);
   const data = await response.json();
-  console.log(data);
+
   if (data.success) {
     localStorage.setItem("token", data.data.token);
-    setUser(data.data.user);
+    setUser(jwt_decode(data.data.token));
     setSuccess(true);
     return;
   }

@@ -11,8 +11,8 @@ function SignUp(props) {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const [checkPassword, setCheckPassword] = useState(false);
-  const { setUser } = props;
-  if (success) {
+  const { setUser, user } = props;
+  if (success || user) {
     return <Navigate to={"/"} />;
   }
   return (

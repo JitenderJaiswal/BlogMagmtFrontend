@@ -14,7 +14,8 @@ function ReadAllPost() {
     return <PropagateLoader color="#36d7b7" />;
   }
   return (
-    <div>
+    <div style={{ background: "#dab7e51a" }}>
+      <h2>Total Post : {posts.length}</h2>
       {posts?.map((post) => (
         <Post {...post} key={post._id} />
       ))}

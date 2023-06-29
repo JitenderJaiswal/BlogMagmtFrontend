@@ -27,7 +27,6 @@ function ReadPost({ user }) {
   }
 
   const { _id, title, content, createdAt, authorId } = post;
-  console.log(user?._id, authorId);
   return (
     <div style={{ background: "#423434" }}>
       <div

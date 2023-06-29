@@ -1,4 +1,4 @@
-// const DEV_URL = "http://localhost:8000";
+//const DEV_URL = "http://localhost:8000";
 const PROD_URL = "https://blog-management-wtsh.onrender.com";
 const API_ROOT = `${PROD_URL}/api/v1`;
 

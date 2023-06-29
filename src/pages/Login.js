@@ -8,8 +8,9 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
-  const { setUser } = props;
-  if (success) {
+  const { setUser, user } = props;
+
+  if (success || user) {
     return <Navigate to={"/"} />;
   }
   return (
